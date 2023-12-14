@@ -12,10 +12,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./tcc-lotto-service
+    # defaults:
+    #   run:
+    #     working-directory: ./tcc-lotto-service
     steps:
+      - working-directory: ./tcc-lotto-service    
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@0609f0983b7a228f052f81ef4c3d6510cae254ad
         with:
@@ -24,6 +25,6 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
-          
+      
       - run: pnpm install
 #      - run: pnpm test
