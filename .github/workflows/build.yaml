@@ -20,7 +20,7 @@ jobs:
         with:
             path: ./tcc-lotto-service
       - run: pwd
-      - working-directory: ./tcc-lotto-service
+        working-directory: ./tcc-lotto-service
     
       - uses: pnpm/action-setup@0609f0983b7a228f052f81ef4c3d6510cae254ad
         with:
