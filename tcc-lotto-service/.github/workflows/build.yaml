@@ -1,0 +1,25 @@
+name: Build code
+run-name: ${{ github.actor }} is build code on branch ${{ github.head_ref }}
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [main]
+  #  schedule:
+  #    - cron: "0 06 1,15 * *" # 6am on 1st and 15th of every month
+  workflow_dispatch: # allow manual runs
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@0609f0983b7a228f052f81ef4c3d6510cae254ad
+        with:
+          version: 6.10.0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      - run: pnpm install
+#      - run: pnpm test
