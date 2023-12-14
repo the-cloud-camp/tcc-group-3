@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
-      - run:
-          working-directory: tcc-lotto-service
+          
       - run: pnpm install
+        working-directory: tcc-lotto-service
 #      - run: pnpm test
