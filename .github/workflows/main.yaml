@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NEW_TAG: ${{ github.sha }}
-      REPO_NAME: ${{ github.event.repository.name }}
+      REPO_NAME: ${{ github.event.repository.name }}-tcc-lotto-service
 
     steps:
       - name: Check out the repo
@@ -43,36 +43,36 @@ jobs:
       - name: Get new Docker tag image
         run: echo ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:${{ env.NEW_TAG }}
 
-  deploy_to_k8s:
-    name: Deploy Image to K8s Cluster
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Create K8S Config
-        env:
-          KUBECTL_CONFIG_CONTENT: ${{ secrets.KUBE_CONFIG }}
-        run: |
-          mkdir -p ~/.kube
-          echo "$KUBECTL_CONFIG_CONTENT" > ~/.kube/config
-
-      - name: Get Current Cluster
-        run: kubectl config current-context
-
-      - name: Check yq Version
-        run: yq --version
-
-      - name: Define Image New Version
-        run: |
-          echo "image_with_new_tag=${{ secrets.DOCKER_USERNAME }}/tcc-service-a:${{ env.NEW_TAG_IMAGE }}" >> $GITHUB_ENV
-          echo $image_with_new_tag
-
-      - name: Update Image in Deployment K8s
-        run: yq -i '.spec.template.spec.containers[0].image=strenv(image_with_new_tag)' ./manifest/dev/deployment.yaml
-
-      - name: Display yaml file
-        run: cat ./manifest/dev/deployment.yaml
-
-      - name: Deploy Docker image New Version to K8s cluster
-        run: kubectl apply -f ./manifest/dev/. -n group-3-dev
+#  deploy_to_k8s:
+#    name: Deploy Image to K8s Cluster
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout Repository
+#        uses: actions/checkout@v4
+#
+#      - name: Create K8S Config
+#        env:
+#          KUBECTL_CONFIG_CONTENT: ${{ secrets.KUBE_CONFIG }}
+#        run: |
+#          mkdir -p ~/.kube
+#          echo "$KUBECTL_CONFIG_CONTENT" > ~/.kube/config
+#
+#      - name: Get Current Cluster
+#        run: kubectl config current-context
+#
+#      - name: Check yq Version
+#        run: yq --version
+#
+#      - name: Define Image New Version
+#        run: |
+#          echo "image_with_new_tag=${{ secrets.DOCKER_USERNAME }}/tcc-service-a:${{ env.NEW_TAG_IMAGE }}" >> $GITHUB_ENV
+#          echo $image_with_new_tag
+#
+#      - name: Update Image in Deployment K8s
+#        run: yq -i '.spec.template.spec.containers[0].image=strenv(image_with_new_tag)' ./manifest/dev/deployment.yaml
+#
+#      - name: Display yaml file
+#        run: cat ./manifest/dev/deployment.yaml
+#
+#      - name: Deploy Docker image New Version to K8s cluster
+#        run: kubectl apply -f ./manifest/dev/. -n group-3-dev

@@ -2,7 +2,7 @@ name: Build code
 run-name: ${{ github.actor }} is build code on branch ${{ github.head_ref }}
 on:
   push:
-    branches: [develop]
+    branches: [main]
   pull_request:
     branches: [main]
   #  schedule:
@@ -21,5 +21,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
+      - run:
+          working-directory: tcc-lotto-service
       - run: pnpm install
 #      - run: pnpm test
