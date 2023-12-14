@@ -17,10 +17,14 @@ jobs:
     #     working-directory: ./tcc-lotto-service
     steps:
       - uses: actions/checkout@v4
+      - name: checkout working directory
+        run:  |
+              pwd
+              working-directory: ./tcc-lotto-service
+              pwd
       - uses: pnpm/action-setup@0609f0983b7a228f052f81ef4c3d6510cae254ad
         with:
           version: 6.10.0
-          working-directory: ./tcc-lotto-service    
       - uses: actions/setup-node@v3
         with:
           node-version: '20'
@@ -28,4 +32,4 @@ jobs:
       
       - run: pnpm install
         working-directory: ./tcc-lotto-service  
-#      - run: pnpm test
+      - run: pnpm test
