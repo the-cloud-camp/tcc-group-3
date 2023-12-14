@@ -25,11 +25,10 @@ jobs:
           working-directory: ./tcc-lotto-service
       - uses: actions/setup-node@v3
         with:
-          #path: ./tcc-lotto-service 
           node-version: '20'
           #cache: 'pnpm'
           working-directory: ./tcc-lotto-service
-      # - run: pnpm install
-      #   working-directory: ./tcc-lotto-service  
-      # - run: pnpm test
-      #   working-directory: ./tcc-lotto-service
+      - run: pnpm install
+        working-directory: ./tcc-lotto-service  
+      - run: pnpm test
+        working-directory: ./tcc-lotto-service
