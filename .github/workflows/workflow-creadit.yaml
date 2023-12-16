@@ -1,0 +1,44 @@
+name: Build Service Lotto
+run-name: ${{ github.actor }} is build code on branch ${{ github.head_ref }}
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+            path: ./tcc-credit-service  
+            
+      - name: Setup Node JS
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          working-directory: ./tcc-credit-service
+          
+      - name: Install Dependencies    
+        run: npm install
+        working-directory: ./tcc-credit-service 
+      
+      - name: Check Version 
+        run: | 
+            npm --version
+            node --version
+        working-directory: ./tcc-credit-service
+
+      - name: Run Node
+        run: |
+             npm run build --if-present
+             npm run start
+        working-directory: ./tcc-credit-service
+
+      - name: Test Node
+        run: |
+	     npm test
+        working-directory: ./tcc-credit-service
