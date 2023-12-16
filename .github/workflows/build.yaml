@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: access to working directory
         run: |
-             cd ./tcc-lotto-service
+             cd tcc-lotto-service
       - uses: actions/checkout@v4
       - run: pwd
       #   with:
