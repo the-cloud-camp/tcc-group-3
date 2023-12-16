@@ -1,5 +1,4 @@
 name: Build Service credit
-run-name: ${{ github.actor }} is build code on branch ${{ github.head_ref }}
 on:
   push:
     branches: [main]
@@ -39,6 +38,5 @@ jobs:
         working-directory: ./tcc-credit-service
 
       - name: Test Node
-        run: |
-	     npm test
+        run: npm test
         working-directory: ./tcc-credit-service
